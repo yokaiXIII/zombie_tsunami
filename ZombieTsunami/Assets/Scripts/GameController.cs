@@ -9,6 +9,13 @@ public class GameController : Singleton<GameController>
     float _gameSpeedMultipler = 1f;
     float _timeFromStart = 0f;
 
+    [SerializeField] Vector3 _gravity = new Vector3(0, -9.81f, 0);
+    public Vector3 Gravity
+    {
+        get { return _gravity; }
+        private set { _gravity = value; }
+    }
+
     public float GameSpeedMultipler
     {
         get { return _gameSpeedMultipler; }
