@@ -21,6 +21,8 @@ public class Horde : MonoBehaviour
         {
             AddHordeMember();
         }
+
+        Collectable.Collected += InfectedHuman;
     }
 
     // Update is called once per frame
@@ -48,7 +50,7 @@ public class Horde : MonoBehaviour
 
         _hordeMembers.Add(hordeMember);
     }
-    
+
     GameObject GetHeadHordeMember()
     {
         GameObject headHordeMember = _hordeMembers[0];
@@ -62,5 +64,13 @@ public class Horde : MonoBehaviour
         }
 
         return headHordeMember;
+    }
+
+    void InfectedHuman(Collectable collected)
+    {
+        if(collected is Human)
+        {
+            AddHordeMember();
+        }
     }
 }
