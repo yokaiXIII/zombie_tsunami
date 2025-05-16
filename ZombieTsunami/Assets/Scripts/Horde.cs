@@ -23,6 +23,7 @@ public class Horde : MonoBehaviour
         }
 
         Collectable.Collected += InfectedHuman;
+        Zombie.OnZombieDeath += RemoveFromHorde;
     }
 
     // Update is called once per frame
@@ -68,9 +69,27 @@ public class Horde : MonoBehaviour
 
     void InfectedHuman(Collectable collected)
     {
-        if(collected is Human)
+        if (collected is Human)
         {
             AddHordeMember();
         }
+    }
+
+    void RemoveFromHorde(Zombie zombie)
+    {
+        for (int i = 0; i < _hordeMembers.Count; i++)
+        {
+            if (zombie.gameObject.GetInstanceID() == _hordeMembers[i].GetInstanceID())
+            {
+                _hordeMembers.RemoveAt(i);
+                break;
+            }
+        }
+    }
+
+    void OnDestroy()
+    {
+        Collectable.Collected -= InfectedHuman;
+        Zombie.OnZombieDeath -= RemoveFromHorde;
     }
 }
