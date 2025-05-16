@@ -10,10 +10,8 @@ public class JumpTrigger : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Jump Trigger Entered: " + other.name);
         if (other.gameObject.TryGetComponent<ZombieCollider>(out ZombieCollider zombie))
         {
-            Debug.Log("Jump Trigger Activated");
             zombie.Jump();
         }
     }

@@ -34,7 +34,6 @@ public class Horde : MonoBehaviour
 
     void PlaceJumpTrigger()
     {
-        
         GameObject headHordeMember = GetHeadHordeMember();
         GameObject jumpTrigger = Instantiate(_jumpPrefab, headHordeMember.transform.position, Quaternion.identity);
         jumpTrigger.transform.localScale = new Vector3(1, 1, 1);
