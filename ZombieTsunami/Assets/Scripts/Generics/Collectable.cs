@@ -1,7 +1,9 @@
 using UnityEngine;
+using System;
 
-public abstract class Collectable : MonoBehaviour
+public class Collectable : MonoBehaviour
 {
+    static public Action<Collectable> Collected;
     protected void OnTriggerEnter(Collider other)
     {
         Debug.Log("Trigger Entered");
@@ -12,5 +14,5 @@ public abstract class Collectable : MonoBehaviour
         }
     }
 
-    protected abstract void Interact();
+    protected virtual void Interact(){}
 }

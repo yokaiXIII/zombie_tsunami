@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class GameController : Singleton<GameController>
 {
-
     [SerializeField] Vector2 _gameSpeedRange = new Vector2(1f, 10f);
     [SerializeField] float _timeToMaxSpeed = 0.1f;
     float _gameSpeedMultipler = 1f;
     float _timeFromStart = 0f;
 
     [SerializeField] Vector3 _gravity = new Vector3(0, -9.81f, 0);
+
+    private int _coinCollected = 0;
     public Vector3 Gravity
     {
         get { return _gravity; }
@@ -26,8 +27,9 @@ public class GameController : Singleton<GameController>
     {
         // Start the coroutine to increase the game timer
         StartCoroutine(IncreaseGameTimer());
+        Collectable.Collected += CoinCollected;
     }
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -40,6 +42,14 @@ public class GameController : Singleton<GameController>
         {
             _timeFromStart += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    void CoinCollected(Collectable collectable)
+    {
+        if(collectable is Coin)
+        {
+            _coinCollected++;
         }
     }
 }
