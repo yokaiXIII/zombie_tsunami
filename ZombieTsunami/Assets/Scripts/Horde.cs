@@ -1,8 +1,9 @@
 using UnityEngine;
 
-public class Horde : Singleton<Horde>
+public class Horde : MonoBehaviour
 {
     [SerializeField] private GameObject _prefab;
+    [SerializeField] private GameObject _jumpPrefab;
     [SerializeField] private int _hordeInitSize = 2;
     [SerializeField] private Collider _hordeSpawnArea;
 
@@ -24,6 +25,20 @@ public class Horde : Singleton<Horde>
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetButtonDown("Fire1"))
+        {
+            PlaceJumpTrigger();
+        }
+    }
+
+    void PlaceJumpTrigger()
+    {
+        if (Physics.Raycast(_hordeSpawnAreaMax, Vector3.down, out RaycastHit hit))
+        {
+            Debug.Log("PointHit: " + hit.point);
+            GameObject jumpTrigger = Instantiate(_jumpPrefab, hit.point, Quaternion.identity);
+            jumpTrigger.transform.localScale = new Vector3(1, 1, 1);
+            jumpTrigger.transform.parent = hit.collider.transform.root;
+        }
     }
 }
