@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class Zombie : MonoBehaviour
 {
+    static public int ZombieCount = 0;
     [SerializeField] private Vector3 _jumpDirection = new Vector3(0, 1, 0);
     [SerializeField] private float _jumpForce = 5f;
     [SerializeField] private float _distanceToGround = 0.1f;
@@ -10,6 +12,12 @@ public class Zombie : MonoBehaviour
     private bool _grounded = false;
 
     private Rigidbody _rb;
+
+    static public Action<Zombie> OnZombieDeath;
+    void Awake()
+    {
+        ZombieCount++;
+    }
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
@@ -27,9 +35,15 @@ public class Zombie : MonoBehaviour
             {
                 _grounded = false;
             }
-        }else
+        }
+        else
         {
             _grounded = false;
+        }
+
+        if (this.transform.position.y < -10)
+        {
+            Death();
         }
     }
 
@@ -46,5 +60,11 @@ public class Zombie : MonoBehaviour
         var ray = Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 10, _rayCastLayerMask, QueryTriggerInteraction.Ignore);
         Gizmos.color = Color.red;
         Gizmos.DrawLine(this.transform.position, hit.point);
+    }
+    private void Death()
+    {
+        OnZombieDeath?.Invoke(this);
+        Destroy(this.gameObject);
+        ZombieCount--;
     }
 }

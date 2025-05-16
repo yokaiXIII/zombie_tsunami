@@ -9,7 +9,6 @@ public class GameController : Singleton<GameController>
     float _timeFromStart = 0f;
 
     [SerializeField] Vector3 _gravity = new Vector3(0, -9.81f, 0);
-
     private int _coinCollected = 0;
     public Vector3 Gravity
     {
@@ -34,6 +33,11 @@ public class GameController : Singleton<GameController>
     void Update()
     {
         GameSpeedMultipler = Mathf.Lerp(_gameSpeedRange.x, _gameSpeedRange.y, _timeFromStart / _timeToMaxSpeed);
+
+        if(Zombie.ZombieCount <= 0)
+        {
+            SceneManager.RestartScene();
+        }
     }
 
     IEnumerator IncreaseGameTimer()
