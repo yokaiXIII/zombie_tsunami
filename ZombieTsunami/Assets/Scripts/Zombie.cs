@@ -17,13 +17,20 @@ public class Zombie : MonoBehaviour
 
     void Update()
     {
-        if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 10,_rayCastLayerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 10, _rayCastLayerMask, QueryTriggerInteraction.Ignore))
         {
             Debug.Log($"Distance from ground {Mathf.Abs(hit.point.y - this.transform.position.y)}");
-            if (Mathf.Abs(hit.point.y - this.transform.position.y) < _distanceToGround)
+            if (Mathf.Abs(hit.point.y - this.transform.position.y) <= _distanceToGround)
             {
                 _grounded = true;
             }
+            else
+            {
+                _grounded = false;
+            }
+        }else
+        {
+            _grounded = false;
         }
     }
 
@@ -33,5 +40,12 @@ public class Zombie : MonoBehaviour
             return;
         _rb.AddForce(_jumpDirection * _jumpForce, ForceMode.Impulse);
         _grounded = false;
+    }
+
+    void OnDrawGizmos()
+    {
+        var ray = Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 10, _rayCastLayerMask, QueryTriggerInteraction.Ignore);
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(this.transform.position, hit.point);
     }
 }
