@@ -61,7 +61,7 @@ public class Zombie : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawLine(this.transform.position, hit.point);
     }
-    private void Death()
+    public void Death()
     {
         OnZombieDeath?.Invoke(this);
         Destroy(this.gameObject);

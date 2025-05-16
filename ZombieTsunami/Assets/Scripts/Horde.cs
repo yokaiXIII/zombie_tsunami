@@ -75,7 +75,7 @@ public class Horde : MonoBehaviour
         }
     }
 
-    void RemoveFromHorde(Zombie zombie)
+    private void RemoveFromHorde(Zombie zombie)
     {
         for (int i = 0; i < _hordeMembers.Count; i++)
         {

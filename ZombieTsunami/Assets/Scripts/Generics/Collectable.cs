@@ -8,12 +8,12 @@ public class Collectable : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<ZombieCollider>(out ZombieCollider zombie))
         {
-            Interact();
+            Interact(zombie);
             Destroy(this.gameObject);
         }
     }
 
-    protected virtual void Interact()
+    protected virtual void Interact(ZombieCollider other = null)
     {
         Collected?.Invoke(this);
     }
