@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8623626512744028706}
   - component: {fileID: 5115899345926466017}
   - component: {fileID: 692881799635302856}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 978830059682400534}
   - component: {fileID: 1902082152091742897}
   - component: {fileID: 3545307127693477062}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Zombie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -198,5 +198,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _jumpDirection: {x: 0, y: 1, z: 0}
-  _jumpForce: 7
+  _jumpForce: 5
   _distanceToGround: 0.6
+  _rayCastLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
