@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class LaneMovement : MonoBehaviour
 {
-    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _speed = 1f;
 
     private void Start()
     {

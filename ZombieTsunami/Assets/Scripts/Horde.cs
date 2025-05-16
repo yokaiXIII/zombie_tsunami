@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Horde : MonoBehaviour
@@ -9,6 +10,8 @@ public class Horde : MonoBehaviour
 
     private Vector3 _hordeSpawnAreaMin;
     private Vector3 _hordeSpawnAreaMax;
+
+    private List<GameObject> _hordeMembers = new List<GameObject>();
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,9 +19,7 @@ public class Horde : MonoBehaviour
         _hordeSpawnAreaMax = new Vector3(_hordeSpawnArea.bounds.max.x, _hordeSpawnArea.bounds.max.y, _hordeSpawnArea.bounds.max.z);
         for (int i = 0; i < _hordeInitSize; i++)
         {
-            Vector3 spawnPosition = new Vector3(Random.Range(_hordeSpawnAreaMin.x, _hordeSpawnAreaMax.x), _hordeSpawnAreaMax.y, Random.Range(_hordeSpawnAreaMin.z, _hordeSpawnAreaMax.z));
-            GameObject hordeMember = Instantiate(_prefab, spawnPosition, Quaternion.identity, this.transform);
-            hordeMember.transform.localScale = new Vector3(1, 1, 1);
+            AddHordeMember();
         }
     }
 
@@ -33,12 +34,34 @@ public class Horde : MonoBehaviour
 
     void PlaceJumpTrigger()
     {
-        if (Physics.Raycast(new Vector3(_hordeSpawnAreaMax.x, _hordeSpawnAreaMax.y, _hordeSpawnAreaMax.z/2), Vector3.down, out RaycastHit hit))
+        
+        GameObject headHordeMember = GetHeadHordeMember();
+        GameObject jumpTrigger = Instantiate(_jumpPrefab, headHordeMember.transform.position, Quaternion.identity);
+        jumpTrigger.transform.localScale = new Vector3(1, 1, 1);
+        jumpTrigger.AddComponent<LaneMovement>();
+    }
+
+    void AddHordeMember()
+    {
+        Vector3 spawnPosition = new Vector3(Random.Range(_hordeSpawnAreaMin.x, _hordeSpawnAreaMax.x), _hordeSpawnAreaMax.y, Random.Range(_hordeSpawnAreaMin.z, _hordeSpawnAreaMax.z));
+        GameObject hordeMember = Instantiate(_prefab, spawnPosition, Quaternion.identity, this.transform);
+        hordeMember.transform.localScale = new Vector3(1, 1, 1);
+
+        _hordeMembers.Add(hordeMember);
+    }
+    
+    GameObject GetHeadHordeMember()
+    {
+        GameObject headHordeMember = _hordeMembers[0];
+        for (int i = 0; i < _hordeMembers.Count; i++)
         {
-            Debug.Log("PointHit: " + hit.point);
-            GameObject jumpTrigger = Instantiate(_jumpPrefab, hit.point, Quaternion.identity);
-            jumpTrigger.transform.localScale = new Vector3(1, 1, 1);
-            jumpTrigger.transform.parent = hit.collider.transform.root;
+            if (headHordeMember.transform.position.x < _hordeMembers[i].transform.position.x)
+            {
+                headHordeMember = _hordeMembers[i];
+            }
+
         }
+
+        return headHordeMember;
     }
 }
