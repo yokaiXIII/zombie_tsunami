@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb15b3ca18a61049904eb4a068135cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameSpeedRange: {x: 0.5, y: 3}
-  _timeToMaxSpeed: 0.1
+  _gameSpeedRange: {x: 0.5, y: 5}
+  _timeToMaxSpeed: 40
   _gravity: {x: 0, y: -9.81, z: 0}
 --- !u!1 &548134945
 GameObject:
@@ -710,6 +710,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3749237799717323425, guid: ade7e00e30ae5704e9baef8da7a5960f, type: 3}
+      propertyPath: _spawnDelay
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5745510902801323918, guid: ade7e00e30ae5704e9baef8da7a5960f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 20
