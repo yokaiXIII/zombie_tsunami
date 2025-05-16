@@ -19,7 +19,6 @@ public class Zombie : MonoBehaviour
     {
         if (Physics.Raycast(this.transform.position, Vector3.down, out RaycastHit hit, 10, _rayCastLayerMask, QueryTriggerInteraction.Ignore))
         {
-            Debug.Log($"Distance from ground {Mathf.Abs(hit.point.y - this.transform.position.y)}");
             if (Mathf.Abs(hit.point.y - this.transform.position.y) <= _distanceToGround)
             {
                 _grounded = true;
