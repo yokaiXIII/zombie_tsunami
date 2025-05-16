@@ -33,7 +33,7 @@ public class Horde : MonoBehaviour
 
     void PlaceJumpTrigger()
     {
-        if (Physics.Raycast(_hordeSpawnAreaMax, Vector3.down, out RaycastHit hit))
+        if (Physics.Raycast(new Vector3(_hordeSpawnAreaMax.x, _hordeSpawnAreaMax.y, _hordeSpawnAreaMax.z/2), Vector3.down, out RaycastHit hit))
         {
             Debug.Log("PointHit: " + hit.point);
             GameObject jumpTrigger = Instantiate(_jumpPrefab, hit.point, Quaternion.identity);
