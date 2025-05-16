@@ -41,7 +41,7 @@ public class Zombie : MonoBehaviour
             _grounded = false;
         }
 
-        if (this.transform.position.y < -10)
+        if (this.transform.position.y < -10 || this.transform.position.x < -10)
         {
             Death();
         }
